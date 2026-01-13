@@ -70,7 +70,7 @@ function App() {
   return (
     <div className="app-container">
       <header className="top-nav">
-        <div className="logo">Vapi Squad</div>
+        <div className="logo">Future Theory Demo</div>
         <button className="demo-btn">Book My Free Demo</button>
       </header>
 
