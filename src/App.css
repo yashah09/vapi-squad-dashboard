@@ -53,7 +53,6 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  /* Stack the hub and the button vertically */
   align-items: center;
   justify-content: center;
   padding: 2rem 0;
@@ -64,29 +63,32 @@
 .central-hub-wrapper {
   display: flex;
   align-items: center;
-  /* This ensures the sidebar and circle are perfectly aligned center-to-center */
   justify-content: center;
+  gap: 0;
 }
 
-/* LEFT COLUMN */
+/* SIDEBARS SHARED */
 .agents-sidebar {
   display: flex;
   flex-direction: column;
   height: 380px;
-  /* Explicitly matches hero image height */
   justify-content: space-between;
-  /* Spreads buttons to Top, Middle, Bottom */
-  width: 250px;
-  align-items: flex-end;
-  margin-right: -25px;
-  /* Moved left from -70px to stop overlap */
+  width: 260px;
   z-index: 10;
 }
 
-.sidebar-right-empty {
-  width: 250px;
-  margin-left: -25px;
-  /* Matched for symmetry */
+/* LEFT SIDEBAR SPECIFICS */
+.left-sidebar {
+  align-items: flex-end;
+  margin-right: -10px;
+  /* Pushed out from -45px */
+}
+
+/* RIGHT SIDEBAR SPECIFICS */
+.right-sidebar {
+  align-items: flex-start;
+  margin-left: -10px;
+  /* Pushed out from -45px */
 }
 
 .agent-selector-btn {
@@ -95,26 +97,14 @@
   gap: 1rem;
   background: white;
   border: 1px solid var(--card-border);
-  padding: 1rem 1.4rem;
+  padding: 1rem 1.2rem;
   border-radius: 16px;
   color: var(--text-muted);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
   font-weight: 500;
   width: 100%;
-}
-
-/* Concave Curving Logic (Hugging the Circle) */
-.agent-selector-btn:nth-child(1) {
-  transform: translateX(-40px);
-}
-
-.agent-selector-btn:nth-child(2) {
-  transform: translateX(-80px);
-}
-
-.agent-selector-btn:nth-child(3) {
-  transform: translateX(-40px);
+  white-space: nowrap;
 }
 
 .agent-selector-btn:hover {
@@ -127,6 +117,32 @@
   color: var(--text-main);
   border: 1px solid var(--accent-primary);
   box-shadow: 0 10px 20px rgba(59, 130, 246, 0.1);
+}
+
+/* LEFT CONCAVE LOGIC */
+.left-sidebar .agent-selector-btn:nth-child(1) {
+  transform: translateX(10px);
+}
+
+.left-sidebar .agent-selector-btn:nth-child(2) {
+  transform: translateX(-30px);
+}
+
+.left-sidebar .agent-selector-btn:nth-child(3) {
+  transform: translateX(10px);
+}
+
+/* RIGHT CONCAVE LOGIC */
+.right-sidebar .agent-selector-btn:nth-child(1) {
+  transform: translateX(-10px);
+}
+
+.right-sidebar .agent-selector-btn:nth-child(2) {
+  transform: translateX(30px);
+}
+
+.right-sidebar .agent-selector-btn:nth-child(3) {
+  transform: translateX(-10px);
 }
 
 .agent-icon-small {

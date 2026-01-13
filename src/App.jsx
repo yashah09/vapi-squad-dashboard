@@ -7,13 +7,19 @@ const vapi = new Vapi('84467ad3-a341-4406-b6f4-b8bf8b71a40c');
 const SQUAD_IDS = {
   'Dental': '331b1819-ec40-494d-b41a-ac2f68893a26',
   'Real Estate': 'ee7b235c-d23f-4aa0-9bca-686978317220',
-  'Med Spa': '124c080e-177f-4ac1-89a9-f593bbbd4fd6'
+  'Med Spa': '124c080e-177f-4ac1-89a9-f593bbbd4fd6',
+  'Plumbing': '', // Add Squad ID here
+  'Roofing': '',  // Add Squad ID here
+  'Hospital': ''  // Add Squad ID here
 };
 
 const AGENT_IMAGES = {
   'Dental': '/dental-agent.png',
   'Real Estate': '/realestate-agent.png',
-  'Med Spa': '/medspa-agent.png'
+  'Med Spa': '/medspa-agent.png',
+  'Plumbing': '/plumbing-agent.png',
+  'Roofing': '/roofing-agent.png',
+  'Hospital': '/dental-agent.png' // Temporary placeholder (Dentist image)
 };
 
 function App() {
@@ -55,6 +61,11 @@ function App() {
     const agentName = selectedAgent;
     const squadId = SQUAD_IDS[agentName];
 
+    if (!squadId) {
+      alert(`Please add a Squad ID for the ${agentName} Assistant in the code first!`);
+      return;
+    }
+
     setActiveCall(agentName);
     setCallStatus('connecting');
 
@@ -78,7 +89,7 @@ function App() {
 
         <div className="central-hub-wrapper">
           {/* LEFT COLUMN: AGENT SELECTOR */}
-          <div className="agents-sidebar">
+          <div className="agents-sidebar left-sidebar">
             <button
               className={`agent-selector-btn ${selectedAgent === 'Dental' ? 'active' : ''}`}
               onClick={() => setSelectedAgent('Dental')}
@@ -124,8 +135,32 @@ function App() {
             />
           </div>
 
-          {/* Right Placeholder for Symmetry */}
-          <div className="sidebar-right-empty"></div>
+          {/* RIGHT COLUMN: NEW AGENT SELECTOR */}
+          <div className="agents-sidebar right-sidebar">
+            <button
+              className={`agent-selector-btn right-btn ${selectedAgent === 'Plumbing' ? 'active' : ''}`}
+              onClick={() => setSelectedAgent('Plumbing')}
+            >
+              <span>Plumbing Assistant</span>
+              <div className="agent-icon-small">🪠</div>
+            </button>
+
+            <button
+              className={`agent-selector-btn right-btn ${selectedAgent === 'Roofing' ? 'active' : ''}`}
+              onClick={() => setSelectedAgent('Roofing')}
+            >
+              <span>Roofing Assistant</span>
+              <div className="agent-icon-small">🏠</div>
+            </button>
+
+            <button
+              className={`agent-selector-btn right-btn ${selectedAgent === 'Hospital' ? 'active' : ''}`}
+              onClick={() => setSelectedAgent('Hospital')}
+            >
+              <span>Hospital Assistant</span>
+              <div className="agent-icon-small">🏥</div>
+            </button>
+          </div>
         </div>
 
         {/* BOTTOM: CALL CONTROLS */}
