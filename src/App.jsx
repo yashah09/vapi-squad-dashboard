@@ -1,0 +1,147 @@
+import React, { useState, useEffect } from 'react';
+import Vapi from '@vapi-ai/web';
+import './App.css';
+
+const vapi = new Vapi('84467ad3-a341-4406-b6f4-b8bf8b71a40c');
+
+const SQUAD_IDS = {
+  'Dental': '331b1819-ec40-494d-b41a-ac2f68893a26',
+  'Real Estate': 'ee7b235c-d23f-4aa0-9bca-686978317220',
+  'Med Spa': '124c080e-177f-4ac1-89a9-f593bbbd4fd6'
+};
+
+const AGENT_IMAGES = {
+  'Dental': '/dental-agent.png',
+  'Real Estate': '/realestate-agent.png',
+  'Med Spa': '/medspa-agent.png'
+};
+
+function App() {
+  const [selectedAgent, setSelectedAgent] = useState('Dental');
+  const [callStatus, setCallStatus] = useState('idle'); // idle, connecting, active
+  const [volumeLevel, setVolumeLevel] = useState(0);
+  const [activeCall, setActiveCall] = useState(null);
+
+  useEffect(() => {
+    vapi.on('call-start', () => {
+      console.log('Call started');
+      setCallStatus('active');
+    });
+
+    vapi.on('call-end', () => {
+      console.log('Call ended');
+      setCallStatus('idle');
+      setActiveCall(null);
+      setVolumeLevel(0);
+    });
+
+    vapi.on('volume-level', (volume) => {
+      setVolumeLevel(volume);
+    });
+
+    vapi.on('error', (e) => {
+      console.error('Vapi Error:', e);
+      setCallStatus('idle');
+      setActiveCall(null);
+    });
+  }, []);
+
+  const handleCall = async () => {
+    if (callStatus === 'active' || callStatus === 'connecting') {
+      vapi.stop();
+      return;
+    }
+
+    const agentName = selectedAgent;
+    const squadId = SQUAD_IDS[agentName];
+
+    setActiveCall(agentName);
+    setCallStatus('connecting');
+
+    try {
+      await vapi.start(undefined, undefined, squadId);
+    } catch (err) {
+      console.error("Failed to start squad call:", err);
+      setCallStatus('idle');
+      setActiveCall(null);
+    }
+  };
+
+  return (
+    <div className="app-container">
+      <header className="top-nav">
+        <div className="logo">Vapi Squad</div>
+        <button className="demo-btn">Book My Free Demo</button>
+      </header>
+
+      <main className="main-layout">
+
+        <div className="central-hub-wrapper">
+          {/* LEFT COLUMN: AGENT SELECTOR */}
+          <div className="agents-sidebar">
+            <button
+              className={`agent-selector-btn ${selectedAgent === 'Dental' ? 'active' : ''}`}
+              onClick={() => setSelectedAgent('Dental')}
+            >
+              <div className="agent-icon-small">🦷</div>
+              <span>Dental Assistant</span>
+            </button>
+
+            <button
+              className={`agent-selector-btn ${selectedAgent === 'Med Spa' ? 'active' : ''}`}
+              onClick={() => setSelectedAgent('Med Spa')}
+            >
+              <div className="agent-icon-small">✨</div>
+              <span>Med Spa Assistant</span>
+            </button>
+
+            <button
+              className={`agent-selector-btn ${selectedAgent === 'Real Estate' ? 'active' : ''}`}
+              onClick={() => setSelectedAgent('Real Estate')}
+            >
+              <div className="agent-icon-small">🏠</div>
+              <span>Real Estate Assistant</span>
+            </button>
+          </div>
+
+          {/* CENTER: HERO IMAGE */}
+          <div className="hero-image-container">
+            {/* Reactive Ring around image */}
+            {callStatus === 'active' && (
+              <div
+                className="volume-ring"
+                style={{
+                  transform: `scale(${1 + volumeLevel * 0.5})`,
+                  opacity: 0.3 + volumeLevel
+                }}
+              ></div>
+            )}
+
+            <img
+              src={AGENT_IMAGES[selectedAgent]}
+              alt={selectedAgent}
+              className="hero-img"
+            />
+          </div>
+
+          {/* Right Placeholder for Symmetry */}
+          <div className="sidebar-right-empty"></div>
+        </div>
+
+        {/* BOTTOM: CALL CONTROLS */}
+        <div className="controls-area">
+          <button
+            className={`main-call-btn ${callStatus === 'active' ? 'hangup' : ''}`}
+            onClick={handleCall}
+          >
+            {callStatus === 'connecting' ? 'Connecting...' :
+              callStatus === 'active' ? 'End Call' : 'Try a Call'}
+          </button>
+        </div>
+
+      </main>
+    </div>
+  );
+}
+
+export default App;

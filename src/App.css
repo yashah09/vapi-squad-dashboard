@@ -1,0 +1,193 @@
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  color: var(--text-main);
+  overflow: hidden;
+  position: relative;
+}
+
+.app-container::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(circle at center, rgba(59, 130, 246, 0.05) 0%, transparent 60%);
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
+
+.top-nav {
+  padding: 1.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.demo-btn {
+  background: #111;
+  color: white;
+  padding: 0.8rem 1.8rem;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.demo-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.main-layout {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  /* Stack the hub and the button vertically */
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.central-hub-wrapper {
+  display: flex;
+  align-items: center;
+  /* This ensures the sidebar and circle are perfectly aligned center-to-center */
+  justify-content: center;
+}
+
+/* LEFT COLUMN */
+.agents-sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 380px;
+  /* Explicitly matches hero image height */
+  justify-content: space-between;
+  /* Spreads buttons to Top, Middle, Bottom */
+  width: 250px;
+  align-items: flex-end;
+  margin-right: -25px;
+  /* Moved left from -70px to stop overlap */
+  z-index: 10;
+}
+
+.sidebar-right-empty {
+  width: 250px;
+  margin-left: -25px;
+  /* Matched for symmetry */
+}
+
+.agent-selector-btn {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: white;
+  border: 1px solid var(--card-border);
+  padding: 1rem 1.4rem;
+  border-radius: 16px;
+  color: var(--text-muted);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  font-weight: 500;
+  width: 100%;
+}
+
+/* Concave Curving Logic (Hugging the Circle) */
+.agent-selector-btn:nth-child(1) {
+  transform: translateX(-40px);
+}
+
+.agent-selector-btn:nth-child(2) {
+  transform: translateX(-80px);
+}
+
+.agent-selector-btn:nth-child(3) {
+  transform: translateX(-40px);
+}
+
+.agent-selector-btn:hover {
+  border-color: var(--accent-primary);
+  color: var(--text-main);
+}
+
+.agent-selector-btn.active {
+  background: white;
+  color: var(--text-main);
+  border: 1px solid var(--accent-primary);
+  box-shadow: 0 10px 20px rgba(59, 130, 246, 0.1);
+}
+
+.agent-icon-small {
+  font-size: 1.2rem;
+}
+
+/* CENTER FIGURE */
+.hero-image-container {
+  width: 380px;
+  height: 380px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 10px solid white;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  z-index: 3;
+}
+
+.volume-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
+  border: 2px solid var(--accent-primary);
+  z-index: 1;
+  transition: transform 0.1s ease-out;
+}
+
+/* CONTROLS */
+.controls-area {
+  margin-top: 3rem;
+  z-index: 10;
+}
+
+.main-call-btn {
+  background: #ff5a1f;
+  color: white;
+  padding: 1.2rem 4rem;
+  font-size: 1.2rem;
+  border-radius: 50px;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(255, 90, 31, 0.3);
+  transition: all 0.3s;
+}
+
+.main-call-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(255, 90, 31, 0.4);
+}
+
+.main-call-btn.hangup {
+  background: #1e293b;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
