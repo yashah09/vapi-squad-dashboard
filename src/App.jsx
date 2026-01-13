@@ -8,8 +8,8 @@ const SQUAD_IDS = {
   'Dental': '331b1819-ec40-494d-b41a-ac2f68893a26',
   'Real Estate': 'ee7b235c-d23f-4aa0-9bca-686978317220',
   'Med Spa': '124c080e-177f-4ac1-89a9-f593bbbd4fd6',
-  'Plumbing': '', // Add Squad ID here
-  'Roofing': '',  // Add Squad ID here
+  'Plumbing': '836d2e64-79fe-45dd-945f-2245c0bf4925',
+  'Roofing': 'ce76a524-8f67-41fd-9edb-b1a95d158bc5',
   'Hospital': '23a8176a-790e-4197-b021-f5e58c77808e'
 };
 
