@@ -10,7 +10,7 @@ const SQUAD_IDS = {
   'Med Spa': '124c080e-177f-4ac1-89a9-f593bbbd4fd6',
   'Plumbing': '', // Add Squad ID here
   'Roofing': '',  // Add Squad ID here
-  'Hospital': ''  // Add Squad ID here
+  'Hospital': '23a8176a-790e-4197-b021-f5e58c77808e'
 };
 
 const AGENT_IMAGES = {
